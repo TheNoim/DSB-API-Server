@@ -1,0 +1,20 @@
+{
+  "name": "DSB-API-Server",
+  "version": "0.0.1",
+  "description": "An api server for dsbapi@npmjs.com",
+  "main": "index.js",
+  "repository": {},
+  "author": "Nils Bergmann <nilsbergmann@noim.io>",
+  "license": "MIT",
+  "dependencies": {
+    "app-root-dir": "^1.0.2",
+    "async": "^2.1.4",
+    "bluebird": "^3.4.7",
+    "dsbapi": "^1.2.0",
+    "express": "^4.14.1",
+    "fs-extra": "^2.0.0",
+    "fs-extra-promise": "^0.4.1",
+    "nedb": "^1.8.0",
+    "pino": "^4.0.0"
+  }
+}
