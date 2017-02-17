@@ -56,3 +56,6 @@ t.js
 yarn.lock
 
 .idea/
+
+
+config.json

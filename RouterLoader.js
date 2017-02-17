@@ -12,7 +12,7 @@ module.exports = function (app, cfg, directory) {
                 try {
                     const RequirePath = path.join(directory, File);
                     log.info(`Load router from file ${File} with path ${RequirePath}`);
-                    app.use(require(RequirePath)({app: app, db: cfg.db}));
+                    app.use(require(RequirePath)({app: app, db: cfg.db, config: cfg.config}));
                     Callback();
                 } catch (e) {
                     Callback(e);

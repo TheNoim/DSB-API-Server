@@ -8,15 +8,23 @@ let glob;
 let db;
 
 router.get('/api/dsb/v2/:username/:password', (req, res) => {
-    log.info(`${req.method} ${req.path} | Pending...`);
-    const dsb = new DSB(req.params.username, req.params.password, path.join(appRootDir, `/cache/${req.params.username}/${req.params.username}.json`));
-    dsb.getData().then(Data => {
-        log.info(`${req.method} ${req.path} | Finished!`);
-        res.json(Data);
-    }).catch(e => {
-        log.error(`${req.method} ${req.path} | Error - 500 1`, e);
-        res.status(500).json({error: e});
-    });
+    if (!req.query.key){
+        res.status(429).json({error: true, message: "You need a key to use the api"});
+    } else {
+        verify(req.query.key, glob.config.secret || Math.random()).then(Payload => {
+            log.info(`${Payload.name} | ${req.method} ${req.path} | Pending...`);
+            const dsb = new DSB(req.params.username, req.params.password, path.join(appRootDir, `/cache/${req.params.username}/${req.params.username}.json`));
+            dsb.getData().then(Data => {
+                log.info(`${Payload.name} | ${req.method} ${req.path} | Finished!`);
+                res.json(Data);
+            }).catch(e => {
+                log.error(`${Payload.name} | ${req.method} ${req.path} | Error - 500 1`, e);
+                res.status(500).json({error: e});
+            });
+        }).catch((e) => {
+            res.status(429).json({error: true, message: "You need a valid key to use the api"});
+        });
+    }
 });
 
 module.exports = function (Objects) {
