@@ -4,6 +4,9 @@ const log = require('../Logger');
 const DSB = require('dsbapi');
 const path = require('path');
 const appRootDir = require('app-root-dir').get();
+const jwt = require('jsonwebtoken');
+const Promise = require('bluebird');
+const verify = Promise.promisify(jwt.verify);
 let glob;
 let db;
 
